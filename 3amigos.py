@@ -15,29 +15,6 @@ class Card:
         else:
             return f"{self.value}"
 
-def create_deck():
-    '''
-    Generates a list of Card objects, one for each combination of value and suit plus two joker cards.
-    '''
-    suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
-    values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
-    deck = [Card(value, suit) for suit in suits for value in values]
-    jokers = [Card('Joker'), Card('Joker')]
-    deck.extend(jokers)
-    return deck
-
-def shuffle_deck(deck):
-    '''
-    Uses Python's built-in random.shuffle method to shuffle the deck in place
-    '''
-    random.shuffle(deck)
-
-def deal_cards(deck, num_cards):
-    '''
-    Removes the specified number of cards from the deck and returns them as a list.
-    '''
-    return [deck.pop() for _ in range(num_cards)]
-
 class Player:
     def __init__(self, name):
         self.name = name
@@ -70,11 +47,40 @@ class Player:
         else:
             print("No more cards in the deck!")
 
-def create_players(names):
+
+def create_deck():
     '''
-     generates a list of Player objects based on the provided names
+    Generates a list of Card objects, one for each combination of value and suit plus two joker cards.
     '''
-    return [Player(name) for name in names]
+    suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+    values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
+    deck = [Card(value, suit) for suit in suits for value in values]
+    jokers = [Card('Joker'), Card('Joker')]
+    deck.extend(jokers)
+    return deck
+
+def shuffle_deck(deck):
+    '''
+    Uses Python's built-in random.shuffle method to shuffle the deck in place
+    '''
+    random.shuffle(deck)
+
+def deal_cards(deck, num_cards):
+    '''
+    Removes the specified number of cards from the deck and returns them as a list.
+    '''
+    return [deck.pop() for _ in range(num_cards)]
+
+def create_players():
+    '''
+    Prompts the user to enter player names and generates a list of Player objects based on the provided names
+    '''
+    num_players = int(input("Enter the number of players: "))
+    players = []
+    for _ in range(num_players):
+        name = input("Enter player name: ")
+        players.append(Player(name))
+    return players
 
 def deal_to_players(deck, players):
     for player in players:
@@ -93,8 +99,7 @@ def game_loop(players, deck):
             if not deck:
                 break
 
-player_names = ['Alice', 'Bob', 'Charlie']
-players = create_players(player_names)
+players = create_players()
 
 # Create, shuffle the deck, and deal cards to each player
 deck = create_deck()
@@ -107,7 +112,7 @@ for player in players:
     print(player.show_face_up())
 
 # Show the remaining cards in the deck
-#print("Remaining cards in the deck:", remaining_deck)
+print("Remaining cards in the deck:", len(remaining_deck))
 
 # Start the game loop
-#game_loop(players, remaining_deck)
+# game_loop(players, remaining_deck)
