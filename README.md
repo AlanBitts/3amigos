@@ -1,4 +1,4 @@
-# tres-amigos
+# 3amigos
 Trying to build a popular card game in Python
 
 # Rules
